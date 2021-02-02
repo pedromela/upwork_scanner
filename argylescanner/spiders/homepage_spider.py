@@ -1,29 +1,27 @@
-import scrapy
+"""
+Home spider module
+"""
 from scrapy.selector import Selector
-from upwork_controller import UpworkController
-from items.profile import Profile
+from spiders.base_spider import BaseSpider
 from items.job import Job
 
-class UpworkHomeSpider(scrapy.Spider):
+class UpworkHomeSpider(BaseSpider):
+    """
+    Home spider class
+    """
     name = 'UpworkHomeSpider'
-    allowed_domains = ['toscrape.com'] 
+    allowed_domains = ['toscrape.com']
     upwork_controller = None
 
     def __init__(self, upwork_controller):
-        if(upwork_controller == None):
-            self.upwork_controller = UpworkController()
-        else:
-            self.upwork_controller = upwork_controller
-
-    def start_requests(self):
-        url = "http://quotes.toscrape.com"
-        yield scrapy.Request(url=url, callback=self.parse)
+        super().__init__(upwork_controller)
 
     def parse(self, response):
         page_source = self.upwork_controller.get_source_home()
-        #file = open('spiders/homepage.html', mode='r')
-        #page_source = file.read()
+
         # Hand-off between Selenium and Scrapy happens here
+        if page_source =='ERROR':
+            return 'ERROR'
         sel = Selector(text=page_source)
         # Extract data
         sections = sel.xpath("//section/div")
@@ -34,12 +32,12 @@ class UpworkHomeSpider(scrapy.Spider):
             jobdescription = selector.xpath("//div/div/div/div/div/div/div/span/span/text()")
             hourlypay = selector.xpath("//div/div/div/div/small/span/strong/text()")
             proposals = selector.xpath("//div/div/div/div/div/span/small/strong/text()")
-            country = selector.xpath("//div/div/div/div/small/span/span/span/span/strong[@class='text-muted client-location ng-binding']/text()")
+            country = selector.xpath("//div/div/div/div/small/span/span/span/span" +
+"/strong[@class='text-muted client-location ng-binding']/text()")
 
             job = Job(jobtitle=jobtitle.get(),
                         jobdescription=jobdescription.get(),
                         hourlypay=hourlypay.get(),
                         proposals=proposals.get(),
                         country=country.get())
-            
             yield job.dict()

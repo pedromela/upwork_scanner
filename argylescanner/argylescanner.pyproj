@@ -4,13 +4,13 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b2afd34a-e8a0-4320-b1bc-e7c1a4105647</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>argylescannerVS.py</StartupFile>
+    <StartupFile>argylescanner.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>argylescannerVS</Name>
-    <RootNamespace>argylescannerVS</RootNamespace>
+    <Name>argylescanner</Name>
+    <RootNamespace>argylescanner</RootNamespace>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <CommandLineArguments>-o output.json</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
@@ -24,7 +24,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="argylescannerVS.py" />
+    <Compile Include="argylescanner.py" />
     <Compile Include="driver.py">
       <SubType>Code</SubType>
     </Compile>
