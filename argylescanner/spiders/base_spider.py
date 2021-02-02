@@ -1,6 +1,7 @@
 """
 Base spider module
 """
+import time
 import scrapy
 from upwork_controller import UpworkController
 

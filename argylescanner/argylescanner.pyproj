@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b2afd34a-e8a0-4320-b1bc-e7c1a4105647</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>test_deserialize.py</StartupFile>
+    <StartupFile>argylescanner.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

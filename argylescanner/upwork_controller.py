@@ -1,6 +1,7 @@
 """
 UpworkController module
 """
+from retry import retry
 from driver import Driver
 
 class UpworkController(Driver):
@@ -79,53 +80,46 @@ class UpworkController(Driver):
         except Exception:
             return False
 
+    @retry(exceptions=Exception, tries=10, delay=30, max_delay=1000, jitter=(0,30))
     def get_source_home(self):
         """
         go to HOME_URL and get source code
         """
-        try:
-            self.check_and_goto_page_url(self.HOME_URL)
-
-            page_source = self.browser.page_source
-        except Exception:
-            page_source = 'ERROR'
-
+        self.check_and_goto_page_url(self.HOME_URL)
+        page_source = self.browser.page_source
         return page_source
 
+    @retry(exceptions=Exception, tries=10, delay=30, max_delay=1000, jitter=(0,30))
     def get_source_profile_settings(self):
         """
         go to CONTACTINFO_URL and get source code
         """
         page_source = self.go_to_profile_settings()
-
         return page_source
 
     def go_to_profile_settings(self):
         """
         go to CONTACTINFO_URL and get source code
         """
-        try:
-            self.check_and_goto_page_url(self.HOME_URL)
+        self.check_and_goto_page_url(self.HOME_URL)
 
-            self.wait_for_field_visibility_xpath("//div[@aria-label='Account Settings']/img")
-            self.click_button_by_xpath("//div[@aria-label='Account Settings']/img")
-            self.click_button_by_xpath("//a[@href='/freelancers/settings/contactInfo']")
+        self.wait_for_field_visibility_xpath("//div[@aria-label='Account Settings']/img")
+        self.click_button_by_xpath("//div[@aria-label='Account Settings']/img")
+        self.click_button_by_xpath("//a[@href='/freelancers/settings/contactInfo']")
 
-            if self.CONTACTINFO_URL not in self.browser.current_url:
-                device_auth = self.try_get_element_by_xpath("//h1[contains(text(),'Device authorization')]")
-                if device_auth is not None:
-                    self.prepare_input_by_name('deviceAuth[answer]', self.SECRET_ANSWER)
-                    self.click_button_by_xpath("//button[@button-role='save']")
-                    if self.CONTACTINFO_URL not in self.browser.current_url:
-                        reenterpassword_header = self.try_get_element_by_xpath("//h1[contains(text(),'Re-enter password')]")
-                        if reenterpassword_header is not None:
-                            self.prepare_input_by_name('sensitiveZone[password]', self.PASSWORD)
-                            self.click_button_by_xpath("//button[@button-role='continue']")
+        if self.CONTACTINFO_URL not in self.browser.current_url:
+            device_auth = self.try_get_element_by_xpath("//h1[contains(text(),'Device authorization')]")
+            if device_auth is not None:
+                self.prepare_input_by_name('deviceAuth[answer]', self.SECRET_ANSWER)
+                self.click_button_by_xpath("//button[@button-role='save']")
+                if self.CONTACTINFO_URL not in self.browser.current_url:
+                    reenterpassword_header = self.try_get_element_by_xpath("//h1[contains(text(),'Re-enter password')]")
+                    if reenterpassword_header is not None:
+                        self.prepare_input_by_name('sensitiveZone[password]', self.PASSWORD)
+                        self.click_button_by_xpath("//button[@button-role='continue']")
 
-            self.click_button_by_xpath("//h2[contains(text(),'Account')]/preceding-sibling::button")
-            self.wait_for_field_visibility_xpath("//input[@data-test='firstNameEdit']")
+        self.click_button_by_xpath("//h2[contains(text(),'Account')]/preceding-sibling::button")
+        self.wait_for_field_visibility_xpath("//input[@data-test='firstNameEdit']")
 
-            page_source = self.browser.page_source
-        except Exception:
-            page_source = 'ERROR'
+        page_source = self.browser.page_source
         return page_source
