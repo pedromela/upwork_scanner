@@ -34,6 +34,9 @@
     <Compile Include="items\profile.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="spiders\base_spider.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="spiders\homepage_spider.py">
       <SubType>Code</SubType>
     </Compile>

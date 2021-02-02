@@ -52,14 +52,14 @@ class Driver:
         browser.execute_cdp_cmd('Network.setUserAgentOverride', user_agent)
         return browser
 
-    def wait_for_field_by_id(self, id):
+    def wait_for_field_by_id(self, element_id):
         """
-        Wait for html element by id selection
+        Wait for html element by element_id selection
         """
         delay = self.DELAY # seconds
         try:
-            print("Waiting "+id)
-            wait_element = WebDriverWait(self.browser, delay).until(EC.presence_of_element_located((By.ID, id)))
+            print("Waiting "+element_id)
+            wait_element = WebDriverWait(self.browser, delay).until(EC.presence_of_element_located((By.ID, element_id)))
         except TimeoutException:
             print("Field loading took too much time!")
 
@@ -85,14 +85,14 @@ class Driver:
         except TimeoutException:
             print("Field loading took too much time!")
 
-    def wait_for_field_visibility_by_id(self, id):
+    def wait_for_field_visibility_by_id(self, element_id):
         """
-        Wait for html element visibility by id selection
+        Wait for html element visibility by element_id selection
         """
         delay = self.DELAY # seconds
         try:
-            print("Waiting visibility "+id)
-            wait_element = WebDriverWait(self.browser, delay).until(EC.visibility_of_element_located((By.ID, id)))
+            print("Waiting visibility "+element_id)
+            wait_element = WebDriverWait(self.browser, delay).until(EC.visibility_of_element_located((By.ID, element_id)))
         except TimeoutException:
             print("Field loading took too much time!")
 
@@ -118,12 +118,12 @@ class Driver:
         except TimeoutException:
             print("Field loading took too much time!")
 
-    def prepare_input_by_id(self, id, newvalue):
+    def prepare_input_by_id(self, element_id, newvalue):
         """
-        Find input by id and send keys
+        Find input by element_id and send keys
         """
-        self.wait_for_field_by_id(id)
-        element = self.browser.find_element_by_id(id)
+        self.wait_for_field_by_id(element_id)
+        element = self.browser.find_element_by_id(element_id)
         self.delay()
         element.send_keys(newvalue)
 
@@ -145,12 +145,12 @@ class Driver:
         self.delay()
         element.send_keys(newvalue)
 
-    def click_button_by_id(self, id):
+    def click_button_by_id(self, element_id):
         """
-        Click button by id
+        Click button by element_id
         """
-        self.wait_for_field_by_id(id)
-        button = self.browser.find_element_by_id(id)
+        self.wait_for_field_by_id(element_id)
+        button = self.browser.find_element_by_id(element_id)
         self.delay()
         button.click()
 
@@ -183,13 +183,13 @@ class Driver:
         except NoSuchElementException:
             return None
 
-    def try_get_element_by_id(self, id):
+    def try_get_element_by_id(self, element_id):
         """
-        Try to find element by id
+        Try to find element by element_id
         """
         try:
-            self.wait_for_field_by_id(id)
-            element = self.browser.find_element_by_id(id)
+            self.wait_for_field_by_id(element_id)
+            element = self.browser.find_element_by_id(element_id)
             return element
         except NoSuchElementException:
             return None
@@ -205,11 +205,11 @@ class Driver:
         except NoSuchElementException:
             return None
 
-    def get_input_value_by_xpath(self, id):
+    def get_input_value_by_xpath(self, element_id):
         """
-        Get input value by id
+        Get input value by element_id
         """
-        input = self.try_get_element_by_id(id)
+        input = self.try_get_element_by_id(element_id)
         value = input.get_attribute('value')
         return value
 
