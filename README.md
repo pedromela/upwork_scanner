@@ -7,3 +7,7 @@ To run go to argylescanner foldler and run the following commands:
 pip install -r requirements.txt
 
 python argylescanner.py
+
+To test the deserialization of objects run:
+
+python test_deserialize.py

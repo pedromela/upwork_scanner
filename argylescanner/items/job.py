@@ -1,11 +1,11 @@
 """
 Job module
 """
-from pydantic import BaseModel
+from items.base_item import BaseItem
 
 NOT_AVAILABLE = 'Not Available'
 
-class Job(BaseModel):
+class Job(BaseItem):
     """
     Job class
     """
@@ -14,3 +14,9 @@ class Job(BaseModel):
     hourlypay = NOT_AVAILABLE
     proposals = NOT_AVAILABLE
     country = NOT_AVAILABLE
+
+    def serialize(self):
+        """
+        serialize object and store in pickle file
+        """
+        super().serialize(self.jobtitle)

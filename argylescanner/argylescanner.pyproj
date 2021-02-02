@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b2afd34a-e8a0-4320-b1bc-e7c1a4105647</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>argylescanner.py</StartupFile>
+    <StartupFile>test_deserialize.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -28,6 +28,9 @@
     <Compile Include="driver.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="items\base_item.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="items\job.py">
       <SubType>Code</SubType>
     </Compile>
@@ -41,6 +44,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="spiders\profile_settings_spider.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_deserialize.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="upwork_controller.py">

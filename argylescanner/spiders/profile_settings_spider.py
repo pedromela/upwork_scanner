@@ -54,4 +54,5 @@ class UpworkProfileSettingsSpider(BaseSpider):
                             'country':country
                               }
                           )
+        profile.serialize()
         yield profile.dict()

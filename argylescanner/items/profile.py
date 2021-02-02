@@ -1,12 +1,11 @@
 """
 Profile module
 """
-import pickle
-from pydantic import BaseModel
+from items.base_item import BaseItem
 
 NOT_AVAILABLE = 'Not Available'
 
-class Profile(BaseModel):
+class Profile(BaseItem):
     """
     Profile class
     """
@@ -42,11 +41,4 @@ class Profile(BaseModel):
         """
         serialize object and store in pickle file
         """
-        file = open(self.full_name + '.pickle', 'wb')
-        pickle.dumps(self, file)
-
-def deserialize(data):
-    """
-    deserialize object given a data argument
-    """
-    return pickle.loads(data)
+        super().serialize(self.full_name)

@@ -32,12 +32,12 @@ class UpworkHomeSpider(BaseSpider):
             jobdescription = selector.xpath("//div/div/div/div/div/div/div/span/span/text()")
             hourlypay = selector.xpath("//div/div/div/div/small/span/strong/text()")
             proposals = selector.xpath("//div/div/div/div/div/span/small/strong/text()")
-            country = selector.xpath("//div/div/div/div/small/span/span/span/span" +
-"/strong[@class='text-muted client-location ng-binding']/text()")
+            country = selector.xpath("//div/div/div/div/small/span/span/span/span/strong[@class='text-muted client-location ng-binding']/text()")
 
             job = Job(jobtitle=jobtitle.get(),
                         jobdescription=jobdescription.get(),
                         hourlypay=hourlypay.get(),
                         proposals=proposals.get(),
                         country=country.get())
+            job.serialize()
             yield job.dict()

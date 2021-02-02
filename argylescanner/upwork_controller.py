@@ -110,14 +110,12 @@ class UpworkController(Driver):
             self.wait_for_field_visibility_xpath("//div[@aria-label='Account Settings']/img")
             self.click_button_by_xpath("//div[@aria-label='Account Settings']/img")
             self.click_button_by_xpath("//a[@href='/freelancers/settings/contactInfo']")
-            self.browser.implicitly_wait(1)
 
             if self.CONTACTINFO_URL not in self.browser.current_url:
                 device_auth = self.try_get_element_by_xpath("//h1[contains(text(),'Device authorization')]")
                 if device_auth is not None:
                     self.prepare_input_by_name('deviceAuth[answer]', self.SECRET_ANSWER)
                     self.click_button_by_xpath("//button[@button-role='save']")
-                    self.browser.implicitly_wait(1)
                     if self.CONTACTINFO_URL not in self.browser.current_url:
                         reenterpassword_header = self.try_get_element_by_xpath("//h1[contains(text(),'Re-enter password')]")
                         if reenterpassword_header is not None:
