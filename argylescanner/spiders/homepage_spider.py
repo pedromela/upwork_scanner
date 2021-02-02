@@ -17,11 +17,12 @@ class UpworkHomeSpider(BaseSpider):
         super().__init__(upwork_controller)
 
     def parse(self, response):
+        """
+        Overrides scrapy parse function
+        """
         page_source = self.upwork_controller.get_source_home()
 
         # Hand-off between Selenium and Scrapy happens here
-        if page_source =='ERROR':
-            return 'ERROR'
         sel = Selector(text=page_source)
         # Extract data
         sections = sel.xpath("//section/div")

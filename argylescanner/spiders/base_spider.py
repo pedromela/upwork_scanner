@@ -21,3 +21,6 @@ class BaseSpider(scrapy.Spider):
     def start_requests(self):
         url = "http://quotes.toscrape.com"
         yield scrapy.Request(url=url, callback=self.parse)
+
+    def parse(self, response):
+        pass

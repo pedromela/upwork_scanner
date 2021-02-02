@@ -16,10 +16,10 @@ class UpworkProfileSettingsSpider(BaseSpider):
         super().__init__(upwork_controller)
 
     def parse(self, response):
+        """
+        Overrides scrapy parse function
+        """
         page_source = self.upwork_controller.get_source_profile_settings()
-
-        if page_source =='ERROR':
-            return 'ERROR'
 
         # Hand-off between Selenium and Scrapy happens here
         sel = Selector(text=page_source)

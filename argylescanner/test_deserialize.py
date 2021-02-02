@@ -1,3 +1,6 @@
+"""
+Module to test serialization/deserialization. The serialized object will be stored in the pickles folder.
+"""
 import os
 import items.profile
 from items.base_item import BaseItem

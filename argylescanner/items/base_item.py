@@ -1,6 +1,7 @@
 """
 Base Item module
 """
+import os
 import pickle
 from pydantic import BaseModel
 
@@ -13,7 +14,9 @@ class BaseItem(BaseModel):
         """
         serialize object and store in pickle file
         """
-        with open("./pickles/" + file_name + '.pickle', 'wb') as f:
+        if not os.path.exists('pickles'):
+            os.makedirs('pickles')
+        with open("pickles/" + file_name + '.pickle', 'wb') as f:
             pickle.dump(self, f)
 
 def deserialize(file):
