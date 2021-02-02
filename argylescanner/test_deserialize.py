@@ -1,5 +1,7 @@
 """
-Module to test serialization/deserialization. Deserialized the objects stored in the pickles folder.
+Module to test serialization/deserialization. 
+Deserializes the objects stored in the pickles folder.
+(these objects are created during the scanner execution)
 """
 import os
 import items.profile
